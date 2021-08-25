@@ -15,11 +15,12 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     expected_result = [@order_3, @order_15, @order_9, @order_12]
 
     # ----------------------- Using Ruby -------------------------
-    orders_of_user_3 = Order.all.select { |order| order.user_id == @user_3.id }
+    #orders_of_user_3 = Order.all.select { |order| order.user_id == @user_3.id }
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
     # Solution goes here
+    orders_of_user_3 = Order.where('user_id = ?', @user_3.id)
     # ------------------------------------------------------------
 
     # Expectation
@@ -34,11 +35,12 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     ]
 
     # ----------------------- Using Ruby -------------------------
-    orders = Order.all.sort_by { |order| order.amount }.reverse
+    #orders = Order.all.sort_by { |order| order.amount }.reverse
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
     # Solution goes here
+    orders = Order.order(amount: :desc)
     # ------------------------------------------------------------
 
     # Expectation
@@ -53,11 +55,12 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     ]
 
     # ----------------------- Using Ruby -------------------------
-    orders = Order.all.sort_by { |order| order.amount }
+    # orders = Order.all.sort_by { |order| order.amount }
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
     # Solution goes here
+    orders = Order.order("amount")
     # ------------------------------------------------------------
 
     # Expectation
@@ -72,11 +75,12 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     ]
 
     # ----------------------- Using Ruby -------------------------
-    items = Item.all.map { |item| item unless items_not_included.include?(item) }.compact
+    # items = Item.all.map { |item| item unless items_not_included.include?(item) }.compact
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
     # Solution goes here
+    items = Item.where.not(id: items_not_included)
     # ------------------------------------------------------------
 
     # Expectation
