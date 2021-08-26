@@ -107,11 +107,12 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     expected_result = ['Abercrombie', 'Banana Republic', 'Calvin Klein', 'Dickies', 'Eddie Bauer', 'Fox', 'Giorgio Armani', 'Hurley', 'Izod', 'J.crew']
 
     # ----------------------- Using Ruby -------------------------
-    names = Item.all.map(&:name)
+    # names = Item.all.map(&:name)
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
     # Solution goes here
+    names = Item.pluck(:name)
     # ------------------------------------------------------------
 
     # Expectation
@@ -136,7 +137,7 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
       'Abercrombie', 'Eddie Bauer', 'J.crew', 'Calvin Klein',
       'Abercrombie', 'Giorgio Armani', 'J.crew', 'Fox',
     ]
-
+require "pry";binding.pry
     # ----------------------- Using Ruby -------------------------
     names = Order.all.map do |order|
       if order.items
@@ -149,6 +150,7 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
 
     # ------------------ Using ActiveRecord ----------------------
     # Solution goes here
+    names = Item.joins(:orders).pluck(:name)
     # ------------------------------------------------------------
 
     # Expectation
