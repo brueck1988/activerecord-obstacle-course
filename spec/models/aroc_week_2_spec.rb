@@ -137,15 +137,14 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
       'Abercrombie', 'Eddie Bauer', 'J.crew', 'Calvin Klein',
       'Abercrombie', 'Giorgio Armani', 'J.crew', 'Fox',
     ]
-require "pry";binding.pry
     # ----------------------- Using Ruby -------------------------
-    names = Order.all.map do |order|
-      if order.items
-        order.items.map { |item| item.name }
-      end
-    end
-
-    names = names.flatten
+    # names = Order.all.map do |order|
+    #   if order.items
+    #     order.items.map { |item| item.name }
+    #   end
+    # end
+    # 
+    # names = names.flatten
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
