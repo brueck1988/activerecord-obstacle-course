@@ -39,11 +39,14 @@ describe 'ActiveRecord Obstacle Course, Week 3' do
     expected_result = ['Abercrombie', 'Giorgio Armani', 'J.crew', 'Fox']
 
     # ----------------------- Using Ruby -------------------------
-    names = Order.last.items.all.map(&:name)
+    # names = Order.last.items.all.map(&:name)
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
     # Solution goes here
+    #####Alternate Solution
+    #names = Item.joins(:orders).where('order_id = ?', Order.last.id).pluck(:name)
+    names = Order.last.items.pluck(:name)
     # ------------------------------------------------------------
 
     # Expectation
