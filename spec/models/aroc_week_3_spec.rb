@@ -71,6 +71,9 @@ describe 'ActiveRecord Obstacle Course, Week 3' do
 
     # ------------------ Using ActiveRecord ----------------------
     # Solution goes here
+    # Alternate Solutions
+    #items_for_user_3_third_order = Order.where(user_id: @user_3.id).third.items.pluck(:name)
+    items_for_user_3_third_order = @user_3.orders[2].items.pluck(:name)
     # ------------------------------------------------------------
 
     # Expectation
