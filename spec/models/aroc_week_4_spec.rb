@@ -63,13 +63,16 @@ describe 'ActiveRecord Obstacle Course, Week 4' do
     expected_result = [@order_11, @order_5]
 
     # ------------------ Inefficient Solution -------------------
-    orders = Order.where(user: @user_2)
-    order_ids = OrderItem.where(order_id: orders, item: @item_4).map(&:order_id)
-    orders = order_ids.map { |id| Order.find(id) }
+    # orders = Order.where(user: @user_2)
+    # order_ids = OrderItem.where(order_id: orders, item: @item_4).map(&:order_id)
+    # orders = order_ids.map { |id| Order.find(id) }
     # -----------------------------------------------------------
 
     # ------------------ Improved Solution ----------------------
     #  Solution goes here
+    # orders = Order.joins(:items).where({user: @user_2, item_id: @item_4})
+    # orders = Order.joins(:items).where("'user.id = ?', @user_2.id AND 'items.id = ?', @item_4.id")
+    orders = Order.where(user_id: @user_2).joins(:items).where("items.id = ?", @item_4.id)
     # -----------------------------------------------------------
 
     # Expectation
