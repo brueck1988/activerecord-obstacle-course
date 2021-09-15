@@ -1,3 +1,4 @@
+
 require 'rails_helper'
 
 describe 'ActiveRecord Obstacle Course, Week 3' do
@@ -105,8 +106,7 @@ describe 'ActiveRecord Obstacle Course, Week 3' do
 
     # ------------------ Using ActiveRecord ----------------------
     # Solution goes here
-    # average = Order.where('user_id = ?', @user_3.id).average(:amount) # SQL syntax
-    average = Order.where(user_id: @user_3.id).average(:amount)
+    average = Order.where('user_id = ?', @user_3.id).average(:amount)
     # ------------------------------------------------------------
 
     # Expectation
