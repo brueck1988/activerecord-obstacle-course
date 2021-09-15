@@ -13,27 +13,29 @@ describe 'ActiveRecord Obstacle Course, Week 4' do
 
   it '21. calculates the total sales' do
     # ---------------------- Using Ruby -------------------------
-    total_sales = Order.all.map(&:amount).inject(:+)
+    # total_sales = Order.all.map(&:amount).inject(:+)
     # -----------------------------------------------------------
 
     # ------------------ Using ActiveRecord ---------------------
     # Solution goes here
+    total_sales = Order.sum(:amount)
     # -----------------------------------------------------------
-
+    
     # Expectation
     expect(total_sales).to eq(9750)
   end
 
   it '22. calculates the total sales for all but one user' do
     # ---------------------- Using Ruby -------------------------
-    orders = Order.all.map do |order|
-      order if order.user_id != @user_2.id
-    end.select{|i| !i.nil?}
-    total_sales = orders.map(&:amount).inject(:+)
+    # orders = Order.all.map do |order|
+    #   order if order.user_id != @user_2.id
+    # end.select{|i| !i.nil?}
+    # total_sales = orders.map(&:amount).inject(:+)
     # -----------------------------------------------------------
 
     # ------------------ Using ActiveRecord ---------------------
     # Solution goes here
+    total_sales = Order.where.not(user_id: @user_2).sum(:amount)
     # -----------------------------------------------------------
 
     # Expectation
@@ -50,6 +52,7 @@ describe 'ActiveRecord Obstacle Course, Week 4' do
 
     # ------------------ Improved Solution ----------------------
     #  Solution goes here
+    orders = Order.joins(:items).where('item_id = ?', @item_4.id)
     # -----------------------------------------------------------
 
     # Expectation
