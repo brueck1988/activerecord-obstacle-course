@@ -95,6 +95,7 @@ describe 'ActiveRecord Obstacle Course, Week 4' do
 
     # ------------------ ActiveRecord Solution ----------------------
     # Solution goes here
+    ordered_items = Item.joins(:order_items).distinct.order(:name)
     # ---------------------------------------------------------------
 
     # Expectations
