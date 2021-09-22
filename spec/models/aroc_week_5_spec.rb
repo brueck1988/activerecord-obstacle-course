@@ -89,10 +89,11 @@ describe 'ActiveRecord Obstacle Course, Week 5' do
     expect(custom_results[2].total_item_count).to eq(24)
   end
 
-  xit '29. returns a table of information for all users orders and item counts' do
+  it '29. returns a table of information for all users orders and item counts' do
     # using a single ActiveRecord call, fetch a joined object that mimics the
     # following table of information:
     # ---------------------------------------
+
     # user_name  | order_id  | avg_item_cost
     # Zoolander      | 5         | 50
     # Zoolander      | 11        | 125
@@ -124,10 +125,19 @@ describe 'ActiveRecord Obstacle Course, Week 5' do
     # how will you turn this into the proper ActiveRecord commands?
 
     # ------------------ ActiveRecord Solution ----------------------
-    data = []
+    #Need:
+      #user_name
+      #order_id
+      #number of orders
+      #orders.amount / count(order_items)
+    data = User.joins(:order_items)
+      .group("users.name, orders.id")
+      .select("users.name as user_name, orders.id as order_id, 
+        CAST(ROUND(orders.amount / count(order_items.id)-0.5, 1) AS int) as avg_item_cost")
+      .order(user_name: :desc, avg_item_cost: :asc)
     # ---------------------------------------------------------------
 
-    expect([data[0].user_name,data[0].order_id,data[0].avg_item_cost]).to eq([@user_1.name, @order_1.id, 50])
+    expect([data[0].user_name, data[0].order_id, data[0].avg_item_cost]).to eq([@user_1.name, @order_1.id, 50])
     expect([data[1].user_name,data[1].order_id,data[1].avg_item_cost]).to eq([@user_1.name, @order_4.id, 125])
     expect([data[2].user_name,data[2].order_id,data[2].avg_item_cost]).to eq([@user_1.name, @order_6.id, 145])
     expect([data[3].user_name,data[3].order_id,data[3].avg_item_cost]).to eq([@user_1.name, @order_7.id, 150])
