@@ -66,7 +66,7 @@ describe 'ActiveRecord Obstacle Course, Week 5' do
     expect(custom_results[2].total_order_count).to eq(6)
   end
 
-  xit '28. returns a table of information for all users items' do
+  it '28. returns a table of information for all users items' do
     custom_results = [@user_2, @user_3, @user_1]
 
     # using a single ActiveRecord call, fetch a joined object that mimics the
@@ -78,7 +78,7 @@ describe 'ActiveRecord Obstacle Course, Week 5' do
     # Zoolander       |         24
 
     # ------------------ ActiveRecord Solution ----------------------
-    custom_results = []
+    custom_results = User.joins(:items).group(:name).select("users.name, COUNT(items.id) as total_item_count").order(:name)
     # ---------------------------------------------------------------
 
     expect(custom_results[0].name).to eq(@user_2.name)
